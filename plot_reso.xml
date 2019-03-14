@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="output_reso.root" />
+	<Log url="reso.log" />
+	<TFile url="debug.root" />
+
+	<TCanvas w="1900" h="1200" />
+	<Margins>0.04, 0.10, 0.12, 0.12</Margins>
+
+	<Transform>
+		<FitSlices save_as="fs_deltaPPt" name="d/rdeltaPPt_PPtGen" axis="y" />
+		<FitSlices save_as="fs_adeltaPPt" name="d/deltaPPt_PPtGen" axis="y" />
+
+		<FitSlices save_as="fs_deltaPPt2" name="d/rdeltaPPt_PPt2Gen" axis="y" />
+		<FitSlices save_as="fs_adeltaPPt2" name="d/deltaPPt_PPt2Gen" axis="y" />
+
+		<!-- <Rebin save_as="rdeltaPt_PtGen_rb" name="d/rdeltaPt_PtGen" bins_x="bins.mPt" bins_y="bins.reso"/> -->
+
+		<FitSlices save_as="fs_deltaPt" name="d/rdeltaPt_PtGen" axis="y" />
+
+
+		<Rebin save_as="mc_PPt_rb" name="mc_PPt" bins_x="bins.mPPt"/>
+		<Rebin save_as="rc_PPt_rb" name="rc_PPt" bins_x="bins.mPPt"/>
+		<Divide save_as="ratio_PPt" nameA="rc_PPt_rb" nameB="mc_PPt_rb" />
+		<Scale save_as="sratio_PPt" name="ratio_PPt" factor="5000" />
+
+
+		<!-- <Rebin save_as="mc_PPt2_rb" name="mc_PPt2" bins_x="bins.mPPt2"/> -->
+		<!-- <Rebin save_as="rc_PPt2_rb" name="rc_PPt2" bins_x="bins.mPPt2"/> -->
+		<Divide save_as="ratio_PPt2" nameA="rc_PPt2" nameB="mc_PPt2" />
+		<Scale save_as="sratio_PPt2" name="ratio_PPt2" factor="5000" />
+	</Transform>
+
+
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="rdeltaPt_PtGen" draw="colz" logz="1" title="" xr="0.0, 1.0" yr="-0.1, 0.1" x-title="GEN p_{T}^{e} (GeV/c)" y-title=" (GEN p_{T}^{e} - RC ) / GEN "  />
+		<!-- <ColorAxis w="0.025" x="0.905" h="0.84" y="0.12" /> -->
+		<Histo name="fs_deltaPt_2" draw="same" lc="#555" lw="3" marker-style="8" marker-color="#555"/>
+		<Histo name="fs_deltaPt_1" draw="same" lc="#000" lw="3" marker-style="8"/>
+
+		<Legend border-size="0" columns="2">
+			<Position pos="top right"  w="0.25" h="0.1" padding="0, 0.1, 0, 0"/>
+			<Entry name="fs_deltaPt_1" title="mean" opt="pe" />
+			<Entry name="fs_deltaPt_2" title="sigma" opt="pe" />
+		</Legend>
+
+		<Export url="export/single_pt_reso_relative.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_single_pt_reso_relative.png" />
+
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/rdeltaPPt_PPtGen" draw="colz" logz="1" title="" xr="0, 0.1" x-title="GEN p_{T}^{ee} (GeV/c)" y-title=" (GEN p_{T}^{ee} - RC ) / GEN "  />
+		<ColorAxis w="0.025" x="0.905" h="0.84" y="0.12" />
+		<Histo name="fs_deltaPPt_2" draw="same" lc="#555" lw="3" marker-style="8" marker-color="#555"/>
+		<Histo name="fs_deltaPPt_1" draw="same" lc="#000" lw="3" marker-style="8"/>
+
+		<Legend border-size="0" fill-style="0" columns="2">
+			<Position pos="top right"  w="0.25" h="0.1" padding="0, 0.1, 0, 0"/>
+			<Entry name="fs_deltaPPt_1" title="mean" opt="pe" />
+			<Entry name="fs_deltaPPt_2" title="sigma" opt="pe" />
+		</Legend>
+
+		<Export url="export/pair_pt_reso_relative.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt_reso_relative.png" />
+
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/deltaPPt_PPtGen" draw="colz" logz="1" title="" xr="0, 0.1" x-title="GEN p_{T}^{ee} (GeV/c)" y-title="GEN p_{T}^{ee} - RC" yr="-0.01, 0.01" />
+		<Histo name="fs_adeltaPPt_2" draw="same" lc="#555" lw="3" />
+		<Histo name="fs_adeltaPPt_1" draw="same" lc="#000" lw="3" />
+
+		<Export url="export/pair_pt_reso_abs_zoom.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt_reso_abs_zoom.png" />
+
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/deltaPPt_PPtGen" draw="colz" logz="1" title="" xr="0, 0.1" x-title="GEN p_{T}^{ee} (GeV/c)" y-title="GEN p_{T}^{ee} - RC" yr="-0.2, 0.2" />
+		<Histo name="fs_adeltaPPt_2" draw="same" lc="#555" lw="3" />
+		<Histo name="fs_adeltaPPt_1" draw="same" lc="#000" lw="3" />
+
+		<Export url="export/pair_pt_reso_abs.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt_reso_abs.png" />
+
+	</Plot>
+
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/rdeltaPPt_PPt2Gen" draw="colz" logz="1" title="" xr="0, 0.01" x-title="GEN p_{T}^{2} (GeV/c)" y-title=" (GEN p_{T}^{2} - RC ) / GEN "  />
+		<ColorAxis w="0.025" x="0.905" h="0.84" y="0.12" />
+		<Histo name="fs_deltaPPt2_2" draw="same" lc="#555" lw="3" marker-style="8" marker-color="#555"/>
+		<Histo name="fs_deltaPPt2_1" draw="same" lc="#000" lw="3" marker-style="8"/>
+
+		<Legend border-size="0" fill-style="0" columns="2">
+			<Position pos="top right"  w="0.25" h="0.1" padding="0, 0.1, 0, 0"/>
+			<Entry name="fs_deltaPPt_1" title="mean" opt="pe" />
+			<Entry name="fs_deltaPPt_2" title="sigma" opt="pe" />
+		</Legend>
+
+		<Export url="export/pair_pt2_reso_relative.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt2_reso_relative.png" />
+
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/deltaPPt_PPt2Gen" draw="colz" logz="1" title="" xr="0, 0.1" x-title="GEN p_{T}^{ee} (GeV/c)" y-title="GEN p_{T}^{ee} - RC" yr="-0.01, 0.01" />
+		<Histo name="fs_adeltaPPt2_2" draw="same" lc="#555" lw="3" />
+		<Histo name="fs_adeltaPPt2_1" draw="same" lc="#000" lw="3" />
+
+		<Export url="export/pair_pt2_reso_abs_zoom.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt2_reso_abs_zoom.png" />
+
+	</Plot>
+
+
+	<Plot>
+		<Histo name="mc_PPt" draw="pe" lc="#f00" marker-color="#f00" logy="1" lw="3" x-title="p_{T}^{ee} (GeV/c)" y-title="dN/dp_{T}^{ee} (GeV/c)^{-1}" xr="0, 0.15" min="10"/>
+		<Histo name="rc_PPt" draw="same pe" lc="#000" marker-color="#000" lw="3" />
+
+		<Legend>
+			<Position pos="top right" />
+			<Entry name="mc_PPt" title="GEN" opt="lpe" />
+			<Entry name="rc_PPt" title="RECO" opt="lpe" />
+		</Legend>
+
+		<Export url="export/pair_pt_mc_vs_rc.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt_mc_vs_rc.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mc_PPt" draw="pe" lc="#f00" marker-color="#f00" logy="0" lw="3" x-title="p_{T}^{ee} (GeV/c)" y-title="dN/dp_{T}^{ee} (GeV/c)^{-1}" xr="0, 0.15"/>
+		<Histo name="rc_PPt" draw="same pe" lc="#000" marker-color="#000" lw="3" />
+
+		<Histo name="sratio_PPt" draw="same hist" lw="3" lc="#00f" />
+		<TLine p1="0, 5000" p2="0.15, 5000" width="5" color="#000" line-style="2"/>
+
+		<Legend>
+			<Position pos="top hcenter" />
+			<Entry name="mc_PPt" title="GEN" opt="lpe" />
+			<Entry name="rc_PPt" title="RECO" opt="lpe" />
+			<Entry name="sratio_PPt" title="RECO / GEN x 5000" />
+		</Legend>
+
+		<Export url="export/pair_pt_mc_vs_rc_linear.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt_mc_vs_rc_linear.png" />
+	</Plot>
+
+
+	<Plot>
+		<Histo name="mc_PPt2" draw="pe" lc="#f00" marker-color="#f00" logy="1" lw="3" x-title="p_{T}^{2} (GeV/c)" y-title="dN/dp_{T}^{2} (GeV/c)^{-1}" xr="0, 0.01"/>
+		<Histo name="rc_PPt2" draw="same pe" lc="#000" marker-color="#000" lw="3" />
+
+		<Histo name="sratio_PPt2" draw="same hist" lw="3" lc="#00f" />
+		<TLine p1="0, 5000" p2="0.15, 5000" width="5" color="#000" line-style="2"/>
+
+		<Legend>
+			<Position pos="top hcenter" />
+			<Entry name="mc_PPt2" title="GEN" opt="lpe" />
+			<Entry name="rc_PPt2" title="RECO" opt="lpe" />
+			<Entry name="sratio_PPt2" title="RECO / GEN x 5000" />
+		</Legend>
+
+		<Export url="export/pair_pt2_mc_vs_rc_linear.png" />
+		<Export url="{HOME}/notable/attachments/emb_upc_pair_pt2_mc_vs_rc_linear.png" />
+	</Plot>
+
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.05" />
+		<mPPt min="0" max="0.200" width="0.005" />
+		<reso min="-1" max="1" width="0.001" />
+	</bins>
+</config>

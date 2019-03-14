@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="starlight_all.lis" treeName="StMiniMcTree" />
+	<TFile url="output_nhf_map.root" />
+
+
+	<Transform>
+		<Draw name="nhf" data="d" draw="mMatchedPairs.mFitPts : mMatchedPairs.mPtPr : mMatchedPairs.mEtaPr" select="mMatchedPairs.mParentKey==0 && mMatchedPairs.mDcaGl < 1.0" bins_x="bins.mEta" bins_y="bins.mPt" bins_z="bins.mNHits" />
+	</Transform>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.01" />
+		<mPhi min="-3.2" max="3.2" width="0.05" />
+		<mEta min="-1.1" max="1.1" width="0.05"/>
+		<mNHits min="0" max="50" width="1" />
+	</bins>
+
+</config>

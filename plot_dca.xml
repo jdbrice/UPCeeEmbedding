@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	
+	<Data name="d" url="output_dca.root" />
+	<Data name="cands" url="/Users/jdb/bnl/work/upc/FemtoPairAnalysis/bin/Run10AuAu.root" />
+
+	<TFile url="output_dcaproj.root" />
+	<Log url="log" />
+
+
+
+	<Transform>
+		<Print msg="MARK1" />
+		<Projection axis="y" save_as="sl_dca" name="d/sl_dca_pt" x1="0.2" x2="10" />
+		<Projection axis="y" save_as="autof_dca" name="d/autof_dca_pt" x1="0.2" x2="10" />
+		<Projection axis="y" save_as="autofe_dca" name="d/autofe_dca_pt" x1="0.2" x2="10" />
+		<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+			0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+			<Projection axis="y" save_as="sl_dca_pt{i}" name="d/sl_dca_pt" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autof_dca_pt{i}" name="d/autof_dca_pt" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autofe_dca_pt{i}" name="d/autofe_dca_pt" x1="{pt1}" x2="{pt2}" />
+
+			
+		</RangeLoop>
+	</Transform>
+
+
+
+	<Transform>
+		<!-- <List data="cands" /> -->
+		<Projection axis="y" save_as="cand_dca_pt" name="mDCA_mPt" x1="0.2" x2="5" />
+		<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+			
+			<Projection axis="y" save_as="cand_dca_pt{i}" name="mDCA_mPt" x1="{pt1}" x2="{pt2}" />
+			<Rebin save_as="rb_cand_dca_pt{i}" name="cand_dca_pt{i}" bins_x="bins.dca"/>
+			<Scale name="rb_cand_dca_pt{i}" opt="width" />
+
+			
+		</RangeLoop>
+	</Transform>
+
+
+	<Plot>
+		<StatBox v="000" />
+		<Axes lsx="0, 3, 50" lsy="1e-4, 0.5, 100" title="0.2 < p_{T} < 5 (GeV/c); DCA (cm); dN/d(DCA)"/>
+
+		<Histo name="sl_dca" draw="same hist" lw="2" lc="#F00" norm="true" line-style="2" logy="1"  xr="0, 2.99"/>
+		<Histo name="autof_dca" draw="same hist" lw="2" lc="#00F" norm="true" />
+		<Histo name="autofe_dca" draw="same hist" lw="2" lc="#3c415e" norm="true" />
+		<Histo name="cand_dca_pt" draw="same pe" lw="2" lc="#000" norm="true" />
+
+		<Legend >
+			<Position pos="top right" />
+			<Entry name="sl_dca" title="embedding" opt="lpe" />
+			<Entry name="autof_dca" title="data: tof" opt="lpe" />
+			<Entry name="autofe_dca" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			<Entry name="cand_dca_pt" title="analysis" opt="lpe" />
+		</Legend>
+
+		<Export url="Export/dca.pdf" />
+		<Export url="{HOME}/notable/attachments/compare_emb_upc_electron_dca.png" />
+	</Plot>
+
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+		
+		<Normalize name="sl_dca_pt{i}" x1="0" x2="5" />
+		<Normalize name="autof_dca_pt{i}" x1="0" x2="5" />
+		<Normalize name="autofe_dca_pt{i}" x1="0" x2="5" />
+		<Normalize name="rb_cand_dca_pt{i}" x1="0" x2="5" />
+		<Normalize name="cand_dca_pt{i}" x1="0" x2="5" />
+
+		<Format var="fpt1" format="%0.1f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.1f" expr="{pt2}" />
+		
+		<CDF save_as="cdf_sl_dca_pt{i}" name="sl_dca_pt{i}" forward="true" />
+		<CDF save_as="cdf_cand_dca_pt{i}" name="cand_dca_pt{i}" forward="true" />
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 3, 50" lsy="1e-4, 0.5, 100" title="{fpt1} < p_{T} < {fpt2} (GeV/c); DCA (cm); dN/d(DCA)" logy="1"/>
+			
+
+			<Histo name="sl_dca_pt{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fphi1} < #phi < {fpt2} (GeV/c)"/>
+			
+			<Histo name="autof_dca_pt{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_dca_pt{i}" draw="same hist" lw="2" lc="#3c415e"  />
+			<Histo name="rb_cand_dca_pt{i}" draw="same hist pe" lw="2" lc="#000"  />
+
+
+			<Histo name="sl_dca_pt{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top right" />
+				<Entry name="sl_dca_pt{i}" title="embedding" opt="lpe" />
+				
+				<Entry name="autof_dca_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_dca_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="rb_cand_dca_pt{i}" title="analysis" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/dca_pt_{i}.pdf" />
+			<Export url="{HOME}/notable/attachments/compare_emb_upc_electron_dca_pt{i}.png" />
+		</Plot>
+
+		<!-- <Assign  -->
+		
+		
+
+		<Plot>
+			<Axes lsx="0, 3, 50" lsy="0.5, 1.1, 100" title="{fpt1} < p_{T} < {fpt2} (GeV/c); DCA (cm); #varepsilon( DCA < X )" logy="0"/>
+			<Histo name="cdf_sl_dca_pt{i}" draw="same hist" lc="#F00" />
+			<Histo name="cdf_cand_dca_pt{i}" draw="same hist" lc="#000" />
+
+			
+
+
+			<TLine p1="0, 1.0" p2="3.0, 1.0" color="#000" ls="1" />
+			<TLine p1="1.0, 0.5 " p2="1.0, 1.0" color="#000" ls="1" />
+
+		
+
+			<Legend border-size="0">
+				<Position pos="bottom right" padding="0, 0.05, 0.05, 0" w="0.3"/>
+				<Entry name="cdf_sl_dca_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="cdf_cand_dca_pt{i}" title="analysis" opt="lpe" />
+			</Legend>
+
+			<Export url="export/dca_cdf_pt_{i}.pdf"/>
+			<Export url="{HOME}/notable/attachments/compare_emb_upc_electron_cdf_dca_pt{i}.png" />
+		</Plot>
+
+		
+	</RangeLoop>
+
+
+	<Transform>
+		<Normalize name="sl_dca" x1="0" x2="5" />
+		<Normalize name="cand_dca_pt" x1="0" x2="5" />
+		<CDF save_as="cdf_sl_dca_pt" name="sl_dca" forward="true" />
+		<CDF save_as="cdf_cand_dca_pt" name="cand_dca_pt" forward="true" />
+
+		<Plot>
+			<Axes lsx="0, 3, 50" lsy="0.5, 1.1, 100" title="0.2 < p_{T} < 5 (GeV/c); DCA (cm); #varepsilon( DCA < X )" logy="0"/>
+			<Histo name="cdf_sl_dca_pt" draw="same hist" lc="#F00" />
+			<Histo name="cdf_cand_dca_pt" draw="same hist" lc="#000" />
+
+			<TLine p1="0, 1.0" p2="3.0, 1.0" color="#000" ls="1" />
+			<TLine p1="1.0, 0.5 " p2="1.0, 1.0" color="#000" ls="1" />
+
+			<Legend border-size="0">
+				<Position pos="bottom right" padding="0, 0.05, 0.05, 0" w="0.3"/>
+				<Entry name="cdf_sl_dca_pt" title="embedding" opt="lpe" />
+				<Entry name="cdf_cand_dca_pt" title="analysis" opt="lpe" />
+			</Legend>
+
+			<Export url="export/dca_cdf_pt.pdf"/>
+			<Export url="{HOME}/notable/attachments/compare_emb_upc_electron_cdf_dca_pt.png" />
+		</Plot>
+	</Transform>
+
+
+	<bins>
+		<dca>0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.50, 2.00, 2.50, 3.0, 5.0</dca>
+	</bins>
+	
+
+</config>

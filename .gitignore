@@ -1,0 +1,12 @@
+*.root
+.DS_Store
+.pdf
+export/
+dca/log2
+*.pdf
+*.png
+run10_unique_runnumbers.txtnhitsfit/*.pdf
+nhitsfit/*.png
+nhitsfit/*.root
+nhitsfit/log2
+shuai

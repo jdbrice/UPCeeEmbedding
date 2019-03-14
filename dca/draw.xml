@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="embed" url="../starlight_embed.lis" treeName="StMiniMcTree" />
+	<Data name="auau" url="../Run10AuAu.lis" treeName="PairDst" />
+	<TFile url="output_draw.root" />
+
+	<cut 
+		prc="mMatchedPairs.mPtPr > 0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==3"
+		nrc="mMatchedPairs.mPtPr > 0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==2"
+		pmc="mMcTracks.mGeantId==2 && mMcTracks.mParentKey==0"
+		nmc="mMcTracks.mGeantId==3 && mMcTracks.mParentKey==0"
+	/>
+
+
+	<!-- Project from Embedding -->
+	<Transform>
+		<Draw name="sl_p_nhf_pt" data="embed" draw="mMatchedPairs.mDcaGl : mMatchedPairs.mPtPr" select="({cut:prc})" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="sl_n_nhf_pt" data="embed" draw="mMatchedPairs.mDcaGl : mMatchedPairs.mPtPr" select="({cut:nrc})" bins_x="bins.mPt" bins_y="bins.mDca" />
+
+		<Draw name="dall_p_nhf_pt" data="auau" draw="d1_mDCA : d1_mPt" select="" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="dall_n_nhf_pt" data="auau" draw="d2_mDCA : d2_mPt" select="" bins_x="bins.mPt" bins_y="bins.mDca" />
+
+		<Draw name="dele_p_nhf_pt" data="auau" draw="d1_mDCA : d1_mPt" select="abs(d1_mNSigmaElectron)<3" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="dele_n_nhf_pt" data="auau" draw="d2_mDCA : d2_mPt" select="abs(d2_mNSigmaElectron)<3" bins_x="bins.mPt" bins_y="bins.mDca" />
+
+		<Draw name="dtof_p_nhf_pt" data="auau" draw="d1_mDCA : d1_mPt" select="d1_mMatchFlag > 0" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="dtof_n_nhf_pt" data="auau" draw="d2_mDCA : d2_mPt" select="d2_mMatchFlag > 0" bins_x="bins.mPt" bins_y="bins.mDca" />
+
+		<Draw name="dtoe_p_nhf_pt" data="auau" draw="d1_mDCA : d1_mPt" select="d1_mMatchFlag > 0 && abs(d1_mNSigmaElectron)<3" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="dtoe_n_nhf_pt" data="auau" draw="d2_mDCA : d2_mPt" select="d2_mMatchFlag > 0 && abs(d2_mNSigmaElectron)<3" bins_x="bins.mPt" bins_y="bins.mDca" />
+	</Transform>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.010" />
+		<mDca min="0" max="5" width="0.05" />
+	</bins>
+
+</config>

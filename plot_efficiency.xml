@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="dMass" url="output_eff_mass_NOMINAL.root" />
+	<Data name="dPt" url="output_eff_pt_NOMINAL.root" />
+	<Data name="dRap" url="output_eff_rap_NOMINAL.root" />
+	<Data name="dDeltaPhi" url="output_eff_DeltaPhi_NOMINAL.root" />
+	<Data name="dPt2" url="output_eff_pt2_NOMINAL.root" />
+	<Data name="dCosTheta" url="output_eff_CosTheta_NOMINAL.root" />
+
+	<c>#4678BA</c>
+
+	<TCanvas w="1200" h="900" />
+	<Margins>0.02, 0.02, 0.1, 0.1</Margins>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dMass/eff_mMass" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="0, 3" y-title="Efficiency = (Reconstructed / MC)" />
+		<Export url="export/efficiency_mass.pdf" /> 
+		<Export url="export/efficiency_mass.png" /> 
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dPt/eff_mPt" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="0, 0.2" y-title="Efficiency = (Reconstructed / MC)" x-title="p_{T}^{ee} (GeV/c)" />
+		<Export url="export/efficiency_pt.pdf" /> 
+		<Export url="export/efficiency_pt.png" /> 
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dPt2/eff_mPt2" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="0, 0.019" y-title="Efficiency = (Reconstructed / MC)" x-title="p_{T}^{2} (GeV/c)^{2}" />
+		<Export url="export/efficiency_pt2.pdf" /> 
+		<Export url="export/efficiency_pt2.png" /> 
+	</Plot>
+
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dRap/eff_mRapidity" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="-1, 1.0" y-title="Efficiency = (Reconstructed / MC)" x-title="y^{ee}" />
+		<Export url="export/efficiency_Rapidity.pdf" /> 
+		<Export url="export/efficiency_Rapidity.png" /> 
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dDeltaPhi/eff_mDeltaPhi" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="0, 1.57" y-title="Efficiency = (Reconstructed / MC)" x-title="#phi^{ee} - #phi^{e}" />
+		<Export url="export/efficiency_DeltaPhi.pdf" /> 
+		<Export url="export/efficiency_DeltaPhi.png" /> 
+	</Plot>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="dCosTheta/eff_mCosTheta" draw="pe" lw="3" marker-style="8" marker-size="0.5" lc="{c}" marker-color="{c}" yr="0, 1" xr="0, 1.57" y-title="Efficiency = (Reconstructed / MC)" x-title="cos(#theta)" />
+		<Export url="export/efficiency_CosTheta.pdf" /> 
+		<Export url="export/efficiency_CosTheta.png" /> 
+	</Plot>
+
+</config>

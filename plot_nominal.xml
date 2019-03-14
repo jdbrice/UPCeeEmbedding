@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="output_nominal.root" />
+	<Log url="nominal.log" />
+
+	<TCanvas w="1900" h="1200" />
+
+	<Transform>
+		
+		<Sumw2 save_as="mPPtw" name="mPPt" />
+		<Sumw2 save_as="mc_mPPtw" name="mc_mPPt" />
+	</Transform>
+
+	<Transform>
+		<Divide save_as="eff_mPPt" nameA="mPPtw" nameB="mc_mPPtw" opt="B"/>
+	</Transform>
+
+	<Plot>
+		<StatBox v="0" />
+		<Histo name="d/mNHitsRatio_pos" draw="pe" logy="1" title="positive: nHitsFit>=20 and DCA < 1.0; nHitsRatio = (nHitsFit / nHitsPossible); dN/d(nHitsRatio)" />
+		<Histo name="d/mNHitsRatio_pos" draw="same hist" />
+
+		<Histo name="d/mNHitsRatio_neg" draw="same pe" lc="#000"/>
+		<Histo name="d/mNHitsRatio_neg" draw="same hist" lc="#000"/>
+
+		<TLine p1="0.52, 1" p2="0.52, 1000" color="#F00"  ls="1" width="2"/>
+
+		<Legend>
+			<Position pos="top left" w="0.3" />
+			<Entry name="mNHitsRatio_neg" title="negative" opt="lpe" />
+			<Entry name="mNHitsRatio_pos" title="positive" opt="lpe" />
+		</Legend>
+
+		<TLatex ux="0.7" uy="100" text="#varepsilon( nHitsRatio >= 0.52 )=99.9%" point="14"/>
+
+		<Export url="export/mNHitsRatio.pdf" />
+		<Export url="{HOME}/notable/attachments/emb_upc_electron_nhitsratio.png" />
+
+	</Plot>
+
+
+	<Plot>
+		<Histo name="eff_mMass" draw="pe" logy="0" yr="0, 1.1" y-title="Eff = (Reco / MC)" xr="0.4, 3"/>
+
+		<TLatex x="0.2" y="0.80" text="RECO = nHitsFit>=20 and nHitsDedx>=15" point="14"/>
+		<TLatex x="0.2" y="0.76" text="             and nHitsRatio>0.52 and Dca<1.0" point="14"/>
+		
+		<Export url="export/eff_mMass.pdf" />
+		<Export url="{HOME}/notable/attachments/emb_upc_eff_mMass_tpcOnly.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="eff_mPPt" draw="pe" logy="0" yr="0, 1.1" x-title="p_{T}^{ee} (GeV/c)" y-title="Eff = (Reco / MC)" xr="0.4, 3"/>
+
+		<TLatex x="0.2" y="0.80" text="RECO = nHitsFit>=20 and nHitsDedx>=15" point="14"/>
+		<TLatex x="0.2" y="0.76" text="             and nHitsRatio>0.52 and Dca<1.0" point="14"/>
+		
+		<Export url="export/eff_mPPt.pdf" />
+		<Export url="{HOME}/notable/attachments/emb_upc_eff_mPPt_tpcOnly.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="eff_mPhi_mPt_pos" draw="colz" min="0" max="1" />
+		<Export url="export/eff_mPhi_mPt_pos.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="eff_mPhi_mPt_neg" draw="colz" min="0" max="1" />
+		<Export url="export/eff_mPhi_mPt_neg.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="eff_mPhi_mEta_pos" draw="colz" min="0" max="1" />
+		<Export url="export/eff_mPhi_mEta_pos.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="eff_mPhi_mEta_neg" draw="colz" min="0" max="1" />
+		<Export url="export/eff_mPhi_mEta_neg.png" />
+	</Plot>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.01" />
+		<mPhi min="-3.2" max="3.2" width="0.05" />
+		<mNHits min="0" max="50" width="1" />
+		<mNHitsRatio min="0" max="1.2" nBins="50" />
+	</bins>
+
+</config>

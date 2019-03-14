@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="embed" url="starlight_embed.lis" treeName="StMiniMcTree" />
+	<Data name="auau" url="Run10AuAu.lis" treeName="PairDst" />
+	<TFile url="output_dca.root" />
+
+	<cut 
+		prc="mMatchedPairs.mPtPr > 0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==3"
+		nrc="mMatchedPairs.mPtPr > 0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==2"
+		pmc="mMcTracks.mGeantId==2 && mMcTracks.mParentKey==0"
+		nmc="mMcTracks.mGeantId==3 && mMcTracks.mParentKey==0"
+	/>
+
+
+	<!-- Project from Embedding -->
+	<Transform>
+		<Draw name="sl_dca_pt" data="embed" draw="mMatchedPairs.mDcaGl : mMatchedPairs.mPtPr" select="({cut:prc})" bins_x="bins.mPt" bins_y="bins.mDca" />
+	</Transform>
+
+	<!-- Project the data for several conditions -->
+	<Transform>
+		<Draw name="autof_dca_pt" data="auau" draw="d2_mDCA : d2_mPt" select="d2_mMatchFlag>0" bins_x="bins.mPt" bins_y="bins.mDca" />
+		<Draw name="autofe_dca_pt" data="auau" draw="d2_mDCA : d2_mPt" select="d2_mMatchFlag>0 && abs(d2_mNSigmaElectron)<3 " bins_x="bins.mPt" bins_y="bins.mDca" />
+	</Transform>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.020" />
+		<mDca min="0" max="5" width="0.05" />
+	</bins>
+
+</config>

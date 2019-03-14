@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	
+	<Data name="d" url="output_nhitsfit.root" />
+	<TFile url="output_proj.root" />
+
+	<v>
+		<dpt>0.05</dpt>
+		<dphi>0.314</dphi>
+	</v>
+	<Transform>
+		<Projection axis="y" save_as="sl_nhf_etap" name="sl_nhf_pt_etap" x1="0" x2="10" />
+		<Projection axis="y" save_as="auall_nhf_etap" name="auall_nhf_pt_etap" x1="0" x2="10" />
+		<Projection axis="y" save_as="auele_nhf_etap" name="auele_nhf_pt_etap" x1="0" x2="10" />
+		<Projection axis="y" save_as="autof_nhf_etap" name="autof_nhf_pt_etap" x1="0" x2="10" />
+		<Projection axis="y" save_as="autofe_nhf_etap" name="autofe_nhf_pt_etap" x1="0" x2="10" />
+
+		<RangeLoop vmin="pt1" vmax="pt2" min="0.10" max="1.0" width="{v.dpt}" index="i">
+			<Projection axis="y" save_as="sl_nhf_etap_pt{i}" name="sl_nhf_pt_etap" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="auall_nhf_etap_pt{i}" name="auall_nhf_pt_etap" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="auele_nhf_etap_pt{i}" name="auele_nhf_pt_etap" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autof_nhf_etap_pt{i}" name="autof_nhf_pt_etap" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autofe_nhf_etap_pt{i}" name="autofe_nhf_pt_etap" x1="{pt1}" x2="{pt2}" />
+		</RangeLoop>
+
+
+	</Transform>
+
+	<Transform>
+		<Projection axis="y" save_as="sl_nhf_etan" name="sl_nhf_pt_etan" x1="0" x2="10" />
+		<Projection axis="y" save_as="auall_nhf_etan" name="auall_nhf_pt_etan" x1="0" x2="10" />
+		<Projection axis="y" save_as="auele_nhf_etan" name="auele_nhf_pt_etan" x1="0" x2="10" />
+		<Projection axis="y" save_as="autof_nhf_etan" name="autof_nhf_pt_etan" x1="0" x2="10" />
+		<Projection axis="y" save_as="autofe_nhf_etan" name="autofe_nhf_pt_etan" x1="0" x2="10" />
+
+		<RangeLoop vmin="pt1" vmax="pt2" min="0.10" max="1.0" width="{v.dpt}" index="i">
+			<Projection axis="y" save_as="sl_nhf_etan_pt{i}" name="sl_nhf_pt_etan" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="auall_nhf_etan_pt{i}" name="auall_nhf_pt_etan" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="auele_nhf_etan_pt{i}" name="auele_nhf_pt_etan" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autof_nhf_etan_pt{i}" name="autof_nhf_pt_etan" x1="{pt1}" x2="{pt2}" />
+			<Projection axis="y" save_as="autofe_nhf_etan_pt{i}" name="autofe_nhf_pt_etan" x1="{pt1}" x2="{pt2}" />
+		</RangeLoop>
+
+
+	</Transform>
+
+
+	<Transform>
+		<Print msg="MARK1" />
+		<RangeLoop vmin="phi1" vmax="phi2" min="-3.14" max="3.14" width="{v.dphi}" index="i">
+			<Projection axis="y" save_as="sl_nhf_etap_pos_phi{i}" name="sl_nhf_phi_etap_pos" x1="{phi1}" x2="{phi2}" />
+			
+			<Projection axis="y" save_as="autof_nhf_etap_pos_phi{i}" name="autof_nhf_phi_etap_pos" x1="{phi1}" x2="{phi2}" />
+			<Projection axis="y" save_as="autofe_nhf_etap_pos_phi{i}" name="autofe_nhf_phi_etap_pos" x1="{phi1}" x2="{phi2}" />
+
+			<Projection axis="y" save_as="sl_nhf_etan_pos_phi{i}" name="sl_nhf_phi_etan_pos" x1="{phi1}" x2="{phi2}" />
+			
+			<Projection axis="y" save_as="autof_nhf_etan_pos_phi{i}" name="autof_nhf_phi_etan_pos" x1="{phi1}" x2="{phi2}" />
+			<Projection axis="y" save_as="autofe_nhf_etan_pos_phi{i}" name="autofe_nhf_phi_etan_pos" x1="{phi1}" x2="{phi2}" />
+
+
+			<Projection axis="y" save_as="sl_nhf_etap_neg_phi{i}" name="sl_nhf_phi_etap_neg" x1="{phi1}" x2="{phi2}" />
+			
+			<Projection axis="y" save_as="autof_nhf_etap_neg_phi{i}" name="autof_nhf_phi_etap_neg" x1="{phi1}" x2="{phi2}" />
+			<Projection axis="y" save_as="autofe_nhf_etap_neg_phi{i}" name="autofe_nhf_phi_etap_neg" x1="{phi1}" x2="{phi2}" />
+
+			<Projection axis="y" save_as="sl_nhf_etan_neg_phi{i}" name="sl_nhf_phi_etan_neg" x1="{phi1}" x2="{phi2}" />
+			
+			<Projection axis="y" save_as="autof_nhf_etan_neg_phi{i}" name="autof_nhf_phi_etan_neg" x1="{phi1}" x2="{phi2}" />
+			<Projection axis="y" save_as="autofe_nhf_etan_neg_phi{i}" name="autofe_nhf_phi_etan_neg" x1="{phi1}" x2="{phi2}" />
+
+		</RangeLoop>
+	</Transform>
+
+
+	<Plot>
+		<StatBox v="000" />
+		<Histo name="sl_nhf_etap" draw="hist" lw="2" lc="#F00" norm="true" line-style="2" />
+		<Histo name="auall_nhf_etap" draw="same hist" lw="2" lc="#ff7657" norm="true" />
+		<Histo name="auele_nhf_etap" draw="same hist" lw="2" lc="#018790" norm="true" />
+		<Histo name="autof_nhf_etap" draw="same hist" lw="2" lc="#00F" norm="true" />
+		<Histo name="autofe_nhf_etap" draw="same hist" lw="2" lc="#3c415e" norm="true" />
+
+		<Legend >
+			<Position pos="top left" />
+			<Entry name="sl_nhf_etap" title="embedding" opt="lpe" />
+			<Entry name="auall_nhf_etap" title="data: all" opt="lpe" />
+			<Entry name="auele_nhf_etap" title="data: |n#sigma_{e}|<3" opt="lpe" />
+			<Entry name="autof_nhf_etap" title="data: tof" opt="lpe" />
+			<Entry name="autofe_nhf_etap" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+		</Legend>
+
+		<Export url="Export/nhf_etap.pdf" />
+	</Plot>
+
+	<!-- min="0.10" max="1.0" width="{v.dpt}" -->
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Normalize name="sl_nhf_etap_pt{i}" x1="15" x2="50" />
+		<Normalize name="auall_nhf_etap_pt{i}" x1="15" x2="50" />
+		<Normalize name="auele_nhf_etap_pt{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etap_pt{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etap_pt{i}" x1="15" x2="50" />
+		
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" />
+			<Histo name="sl_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#F00" norm="true" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+			<Histo name="auall_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#ff7657" norm="true" />
+			<Histo name="auele_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#018790" norm="true" />
+			<Histo name="autof_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#00F" norm="true" />
+			<Histo name="autofe_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#3c415e" norm="true" />
+
+
+			<Histo name="sl_nhf_etap_pt{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etap_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="auall_nhf_etap_pt{i}" title="data: all" opt="lpe" />
+				<Entry name="auele_nhf_etap_pt{i}" title="data: |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="autof_nhf_etap_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etap_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etap_{i}.pdf" />
+		</Plot>
+	</RangeLoop>
+
+
+
+	<Plot>
+		<StatBox v="000" />
+		<Histo name="sl_nhf_etan" draw="hist" lw="2" lc="#F00" norm="true" line-style="2" />
+		<Histo name="auall_nhf_etan" draw="same hist" lw="2" lc="#ff7657" norm="true" />
+		<Histo name="auele_nhf_etan" draw="same hist" lw="2" lc="#018790" norm="true" />
+		<Histo name="autof_nhf_etan" draw="same hist" lw="2" lc="#00F" norm="true" />
+		<Histo name="autofe_nhf_etan" draw="same hist" lw="2" lc="#3c415e" norm="true" />
+
+		<Legend >
+			<Position pos="top left" />
+			<Entry name="sl_nhf_etan" title="embedding" opt="lpe" />
+			<Entry name="auall_nhf_etan" title="data: all" opt="lpe" />
+			<Entry name="auele_nhf_etan" title="data: |n#sigma_{e}|<3" opt="lpe" />
+			<Entry name="autof_nhf_etan" title="data: tof" opt="lpe" />
+			<Entry name="autofe_nhf_etan" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+		</Legend>
+
+		<Export url="Export/nhf_etan.pdf" />
+	</Plot>
+
+	<!-- min="0.10" max="1.0" width="{v.dpt}" -->
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Normalize name="sl_nhf_etan_pt{i}" x1="15" x2="50" />
+		<Normalize name="auall_nhf_etan_pt{i}" x1="15" x2="50" />
+		<Normalize name="auele_nhf_etan_pt{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etan_pt{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etan_pt{i}" x1="15" x2="50" />
+		
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" title="{fpt1} < p_{T} < {fpt2} (GeV/c); nHitsFit; dN/d(nHitsFit)"/>
+			<Histo name="sl_nhf_etan_pt{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+			<Histo name="auall_nhf_etan_pt{i}" draw="same hist" lw="2" lc="#ff7657"  />
+			<Histo name="auele_nhf_etan_pt{i}" draw="same hist" lw="2" lc="#018790"  />
+			<Histo name="autof_nhf_etan_pt{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_nhf_etan_pt{i}" draw="same hist" lw="2" lc="#3c415e"  />
+
+
+			<Histo name="sl_nhf_etan_pt{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etan_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="auall_nhf_etan_pt{i}" title="data: all" opt="lpe" />
+				<Entry name="auele_nhf_etan_pt{i}" title="data: |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="autof_nhf_etan_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etan_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etan_{i}.pdf" />
+		</Plot>
+	</RangeLoop>
+
+
+
+	<RangeLoop vmin="phi1" vmax="phi2" min="-3.14" max="3.14" width="{v.dphi}" index="i">
+		
+
+		<Format var="fphi1" format="%0.2f" expr="{phi1}" />
+		<Format var="fphi2" format="%0.2f" expr="{phi2}" />
+
+		<Normalize name="sl_nhf_etan_pos_phi{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etan_pos_phi{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etan_pos_phi{i}" x1="15" x2="50" />
+
+
+		<Normalize name="sl_nhf_etap_pos_phi{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etap_pos_phi{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etap_pos_phi{i}" x1="15" x2="50" />
+
+		<!-- NEGATIVE -->
+		<Normalize name="sl_nhf_etan_neg_phi{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etan_neg_phi{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etan_neg_phi{i}" x1="15" x2="50" />
+
+
+		<Normalize name="sl_nhf_etap_neg_phi{i}" x1="15" x2="50" />
+		<Normalize name="autof_nhf_etap_neg_phi{i}" x1="15" x2="50" />
+		<Normalize name="autofe_nhf_etap_neg_phi{i}" x1="15" x2="50" />
+		
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" title="{fphi1} < #phi < {fphi2} (GeV/c); nHitsFit; dN/d(nHitsFit)"/>
+			<Histo name="sl_nhf_etap_pos_phi{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fphi1} < #phi < {fpt2} (GeV/c)"/>
+			
+			<Histo name="autof_nhf_etap_pos_phi{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_nhf_etap_pos_phi{i}" draw="same hist" lw="2" lc="#3c415e"  />
+
+
+			<Histo name="sl_nhf_etap_pos_phi{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etap_pos_phi{i}" title="embedding" opt="lpe" />
+				
+				<Entry name="autof_nhf_etap_pos_phi{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etap_pos_phi{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etap_pos_phi_{i}.pdf" />
+		</Plot>
+
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" title="{fphi1} < #phi < {fphi2} (GeV/c); nHitsFit; dN/d(nHitsFit)"/>
+			<Histo name="sl_nhf_etan_pos_phi{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fphi1} < #phi < {fpt2} (GeV/c)"/>
+			
+			<Histo name="autof_nhf_etan_pos_phi{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_nhf_etan_pos_phi{i}" draw="same hist" lw="2" lc="#3c415e"  />
+
+
+			<Histo name="sl_nhf_etan_pos_phi{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etan_pos_phi{i}" title="embedding" opt="lpe" />
+				
+				<Entry name="autof_nhf_etan_pos_phi{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etan_pos_phi{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etan_pos_phi_{i}.pdf" />
+		</Plot>
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" title="{fphi1} < #phi < {fphi2} (GeV/c); nHitsFit; dN/d(nHitsFit)"/>
+			<Histo name="sl_nhf_etap_neg_phi{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fphi1} < #phi < {fpt2} (GeV/c)"/>
+			
+			<Histo name="autof_nhf_etap_neg_phi{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_nhf_etap_neg_phi{i}" draw="same hist" lw="2" lc="#3c415e"  />
+
+
+			<Histo name="sl_nhf_etap_neg_phi{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etap_neg_phi{i}" title="embedding" opt="lpe" />
+				
+				<Entry name="autof_nhf_etap_neg_phi{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etap_neg_phi{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etap_neg_phi_{i}.pdf" />
+		</Plot>
+
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 0.2, 100" title="{fphi1} < #phi < {fphi2} (GeV/c); nHitsFit; dN/d(nHitsFit)"/>
+			<Histo name="sl_nhf_etan_neg_phi{i}" draw="same hist" lw="2" lc="#F00"  line-style="2" title="{fphi1} < #phi < {fpt2} (GeV/c)"/>
+			
+			<Histo name="autof_nhf_etan_neg_phi{i}" draw="same hist" lw="2" lc="#00F"  />
+			<Histo name="autofe_nhf_etan_neg_phi{i}" draw="same hist" lw="2" lc="#3c415e"  />
+
+
+			<Histo name="sl_nhf_etan_neg_phi{i}" draw="same pe" lw="2" lc="#F00" norm="true" line-style="2" />
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="sl_nhf_etan_neg_phi{i}" title="embedding" opt="lpe" />
+				
+				<Entry name="autof_nhf_etan_neg_phi{i}" title="data: tof" opt="lpe" />
+				<Entry name="autofe_nhf_etan_neg_phi{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/nhf_etan_neg_phi_{i}.pdf" />
+		</Plot>
+
+	</RangeLoop>
+
+
+</config>

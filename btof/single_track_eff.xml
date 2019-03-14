@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="data.lis" treeName="FemtoDst" />
+	<TFile url="output_single_track.root" />
+
+	<cut track="Tracks.mMcIndex>=0 && McTracks[Tracks.mMcIndex].mParentIndex<0 && Tracks.mNHitsFit>=20 && Tracks.mNHitsDedx>=15 && Tracks.mDCA/1000.0 < 1.0" vz="30" />
+
+	<Loop var="n" states="mPt, mEta, mPhi">
+		<Draw name="rc_{n}" data="d" draw="Tracks.{n}" select="{cut:track} && abs(mPrimaryVertex_mX3)<{cut:vz}" bins_x="bins.{n}" />
+		<Draw name="tof_{n}" data="d" draw="Tracks.{n}" select="{cut:track} && abs(mPrimaryVertex_mX3)<{cut:vz} && Tracks.mBTofPidTraitsIndex>=0" bins_x="bins.{n}" />
+	</Loop>
+
+	<Transform>
+		<Draw name="rc_absEta" data="d" draw="abs(Tracks.mEta)" select="{cut:track} && abs(mPrimaryVertex_mX3)<{cut:vz}" bins_x="bins.absEta" />
+		<Draw name="tof_absEta" data="d" draw="abs(Tracks.mEta)" select="{cut:track} && abs(mPrimaryVertex_mX3)<{cut:vz} && Tracks.mBTofPidTraitsIndex>=0" bins_x="bins.absEta" />
+	</Transform>
+
+	<Loop var="n" states="mPt, mEta, mPhi, absEta">
+		<Divide save_as="eff_{n}" nameA="tof_{n}" nameB="rc_{n}" />
+	</Loop>
+
+	<bins>
+		<mPt min="0" max="2" width="0.05" />
+		<mEta min="-1.2" max="1.2" width="0.1" />
+		<absEta min="0" max="1.2" width="0.1" />
+		<mPhi min="-3.3" max="3.3" width="0.1" />
+	</bins>
+
+</config>

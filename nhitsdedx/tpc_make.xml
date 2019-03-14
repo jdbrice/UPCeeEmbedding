@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	
+	<Log url="log2"/>
+	<Data name="d" url="output_draw.root" />
+	<Data name="ana" url="/Users/jdb/bnl/work/upc/FemtoPairAnalysis/bin/Run10AuAu_TPC_Signal.root" />
+	<TFile url="output_tpc_make.root" />
+
+	<TCanvas w="1200" h ="900" />
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+		<Projection axis="y" save_as="sl_p_nhf_pt{i}" name="d/sl_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtpc_p_nhf_pt{i}" name="ana/failed_notof_mNHitsDedx_mPt_pos" x1="{pt1}" x2="{pt2}" />
+
+
+
+		<Projection axis="y" save_as="sl_n_nhf_pt{i}" name="d/sl_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtpc_n_nhf_pt{i}" name="ana/failed_notof_mNHitsDedx_mPt_neg" x1="{pt1}" x2="{pt2}" />
+	</RangeLoop>
+	
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Normalize save_as="norm_sl_p_pt{i}" name="sl_p_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtpc_p_pt{i}" name="dtpc_p_nhf_pt{i}" x1="0" x2="50" />
+
+
+		<Normalize save_as="norm_sl_n_pt{i}" name="sl_n_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtpc_n_pt{i}" name="dtpc_n_nhf_pt{i}" x1="0" x2="50" />
+	</RangeLoop>
+
+
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+		
+		<CDF save_as="cdf_sl_p_pt{i}" name="norm_sl_p_pt{i}" forward="false" />
+		<CDF save_as="cdf_dtpc_p_pt{i}" name="norm_dtpc_p_pt{i}" forward="false" />
+
+		<CDF save_as="cdf_sl_n_pt{i}" name="norm_sl_n_pt{i}" forward="false" />
+		<CDF save_as="cdf_dtpc_n_pt{i}" name="norm_dtpc_n_pt{i}" forward="false" />
+	</RangeLoop>
+		
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0.001, 0.5, 100" title="Pos : {fpt1} < p_{T} < {fpt2} (GeV/c); nHitsDedx; #varepsilon( nHitsDedx > X )" logy="1"/>
+			<Histo name="norm_sl_p_pt{i}" draw="same hist" lw="2" lc="#F00" line-style="2" />
+			<Histo name="norm_dtpc_p_pt{i}" draw="same hist" lw="2" lc="#9ED768" />
+
+
+			<!-- <Histo name="norm_sl_p_pt{i}" draw="same pe" lw="2" lc="#F00" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/> -->
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="norm_sl_p_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="norm_dtpc_p_pt{i}" title="data: signal" opt="lpe" />
+			</Legend>
+
+			<Export url="export/tpc/tpc_norm_nhf_p_{i}.pdf" />
+			<Export url="export/tpc/img_tpc_norm_nhf_p_{i}.png" />
+		</Plot>
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 1.2, 100" title="Pos : {fpt1} < p_{T} < {fpt2} (GeV/c); nHitsDedx; #varepsilon( nHitsDedx > X )" logy="0" />
+			<Histo name="cdf_sl_p_pt{i}" draw="same hist" lw="2" lc="#F00" line-style="2" />
+			<Histo name="cdf_dtpc_p_pt{i}" draw="same hist" lw="2" lc="#9ED768" />
+
+			<Legend >
+				<Position pos="bottom left" />
+				<Entry name="cdf_sl_p_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="cdf_dtpc_p_pt{i}" title="data: signal" opt="lpe" />
+			</Legend>
+
+			<Export url="export/tpc/tpc_cdf_nhf_p_{i}.pdf" />
+			<Export url="export/tpc/img_tpc_cdf_nhf_p_{i}.png" />
+		</Plot>
+
+
+	</RangeLoop>
+
+</config>

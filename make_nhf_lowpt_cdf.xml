@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	
+	<Log url="log2"/>
+	<Data name="d" url="output_proj.root" />
+	<Data name="dd" url="Run10AuAu_nhf0.root" />
+	<TFile url="output_nhf_lowpt_cdf.root" />
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Normalize save_as="norm_sl_nhf_etap_pt{i}" name="d/sl_nhf_etap_pt{i}" x1="1" x2="45" />
+		<Normalize save_as="norm_auall_nhf_etap_pt{i}" name="d/auall_nhf_etap_pt{i}" x1="1" x2="45" />
+		<Normalize save_as="norm_auele_nhf_etap_pt{i}" name="d/auele_nhf_etap_pt{i}" x1="1" x2="45" />
+		<Normalize save_as="norm_autof_nhf_etap_pt{i}" name="d/autof_nhf_etap_pt{i}" x1="1" x2="45" />
+		<Normalize save_as="norm_autofe_nhf_etap_pt{i}" name="d/autofe_nhf_etap_pt{i}" x1="1" x2="45" />
+	</RangeLoop>
+
+
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+		
+		<CDF save_as="cdf_sl_nhf_etap_pt{i}" name="norm_sl_nhf_etap_pt{i}" forward="false" />
+		<CDF save_as="cdf_auall_nhf_etap_pt{i}" name="norm_auall_nhf_etap_pt{i}" forward="false" />
+		<CDF save_as="cdf_auele_nhf_etap_pt{i}" name="norm_auele_nhf_etap_pt{i}" forward="false" />
+		<CDF save_as="cdf_autof_nhf_etap_pt{i}" name="norm_autof_nhf_etap_pt{i}" forward="false" />
+		<CDF save_as="cdf_autofe_nhf_etap_pt{i}" name="norm_autofe_nhf_etap_pt{i}" forward="false" />
+	</RangeLoop>
+		
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.20, 0.30, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 50, 50" lsy="0, 1.2, 100" />
+			<Histo name="cdf_sl_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#F00" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+			<Histo name="cdf_auall_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#ff7657" />
+			<Histo name="cdf_auele_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#018790" />
+			<Histo name="cdf_autof_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#00F" />
+			<Histo name="cdf_autofe_nhf_etap_pt{i}" draw="same hist" lw="2" lc="#3c415e" />
+
+
+			<Histo name="cdf_sl_nhf_etap_pt{i}" draw="same pe" lw="2" lc="#F00" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+
+			<Legend >
+				<Position pos="bottom left" />
+				<Entry name="cdf_sl_nhf_etap_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="cdf_auall_nhf_etap_pt{i}" title="data: all" opt="lpe" />
+				<Entry name="cdf_auele_nhf_etap_pt{i}" title="data: |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="cdf_autof_nhf_etap_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="cdf_autofe_nhf_etap_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="Export/cdf_nhf_etap_{i}.pdf" />
+		</Plot>
+	</RangeLoop>
+
+</config>

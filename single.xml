@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="starlight_embed.lis" treeName="StMiniMcTree" />
+	<TFile url="output_single.root" />
+
+	<Script>
+		TLorentzVectorUtil.C
+	</Script>
+
+	<cut 
+		prc="mMatchedPairs.mDedxPts >= 10 && mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==2"
+		nrc="mMatchedPairs.mDedxPts >= 10 && mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==3"
+		pmc="mMcTracks.mGeantId==2 && mMcTracks.mParentKey==0"
+		nmc="mMcTracks.mGeantId==3 && mMcTracks.mParentKey==0"
+	/>
+
+
+	<Transform>
+		<Loop var="v" states="mPt, mPhi" >
+			<Draw name="mc_pos_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:pmc}" bins_x="bins.{v}" />
+			<Draw name="mc_neg_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:nmc}" bins_x="bins.{v}" />
+
+			<Draw name="rc_pos_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:prc}" bins_x="bins.{v}" />
+			<Draw name="rc_neg_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:nrc}" bins_x="bins.{v}" />
+
+			<!-- eta positive -->
+			<Draw name="mc_pos_etap_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:pmc} && mMcTracks.mEtaMc > 0" bins_x="bins.{v}" />
+			<Draw name="mc_neg_etap_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:nmc} && mMcTracks.mEtaMc > 0" bins_x="bins.{v}" />
+			<Draw name="rc_pos_etap_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:prc} && mMatchedPairs.mEtaMc > 0" bins_x="bins.{v}" />
+			<Draw name="rc_neg_etap_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:nrc} && mMatchedPairs.mEtaMc > 0" bins_x="bins.{v}" />
+
+			<!-- eta negative -->
+			<Draw name="mc_pos_etan_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:pmc} && mMcTracks.mEtaMc < 0" bins_x="bins.{v}" />
+			<Draw name="mc_neg_etan_{v}" data="d" draw="mMcTracks.{v}Mc" select="{cut:nmc} && mMcTracks.mEtaMc < 0" bins_x="bins.{v}" />
+			<Draw name="rc_pos_etan_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:prc} && mMatchedPairs.mEtaMc < 0" bins_x="bins.{v}" />
+			<Draw name="rc_neg_etan_{v}" data="d" draw="mMatchedPairs.{v}Mc" select="{cut:nrc} && mMatchedPairs.mEtaMc < 0" bins_x="bins.{v}" />
+		</Loop>
+	</Transform>
+
+	<Transform>
+		<RangeLoop vmin="a" vmax="b" min="-3.14" max="3.14" width="0.628" >
+			<Draw name="mc_pos_etap_phi{a_i}_mPt" data="d" draw="mMcTracks.mPtMc" select="{cut:pmc} && mMcTracks.mEtaMc > 0 && mMcTracks.mPhiMc > {a} && mMcTracks.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="mc_neg_etap_phi{a_i}_mPt" data="d" draw="mMcTracks.mPtMc" select="{cut:nmc} && mMcTracks.mEtaMc > 0 && mMcTracks.mPhiMc > {a} && mMcTracks.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="rc_pos_etap_phi{a_i}_mPt" data="d" draw="mMatchedPairs.mPtMc" select="{cut:prc} && mMatchedPairs.mEtaMc > 0 && mMatchedPairs.mPhiMc > {a} && mMatchedPairs.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="rc_neg_etap_phi{a_i}_mPt" data="d" draw="mMatchedPairs.mPtMc" select="{cut:nrc} && mMatchedPairs.mEtaMc > 0 && mMatchedPairs.mPhiMc > {a} && mMatchedPairs.mPhiMc <= {b}"  bins_x="bins.mPt" />
+
+			<Draw name="mc_pos_etan_phi{a_i}_mPt" data="d" draw="mMcTracks.mPtMc" select="{cut:pmc} && mMcTracks.mEtaMc < 0 && mMcTracks.mPhiMc > {a} && mMcTracks.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="mc_neg_etan_phi{a_i}_mPt" data="d" draw="mMcTracks.mPtMc" select="{cut:nmc} && mMcTracks.mEtaMc < 0 && mMcTracks.mPhiMc > {a} && mMcTracks.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="rc_pos_etan_phi{a_i}_mPt" data="d" draw="mMatchedPairs.mPtMc" select="{cut:prc} && mMatchedPairs.mEtaMc < 0 && mMatchedPairs.mPhiMc > {a} && mMatchedPairs.mPhiMc <= {b}"  bins_x="bins.mPt" />
+			<Draw name="rc_neg_etan_phi{a_i}_mPt" data="d" draw="mMatchedPairs.mPtMc" select="{cut:nrc} && mMatchedPairs.mEtaMc < 0 && mMatchedPairs.mPhiMc > {a} && mMatchedPairs.mPhiMc <= {b}"  bins_x="bins.mPt" />
+		</RangeLoop>
+	</Transform>
+
+
+	<Transform>
+		<Loop var="v" states="mPt, mPhi" >
+			<Loop var="charge" states="pos, neg" >
+				<Divide save_as="eff_{charge}_{v}" nameA="rc_{charge}_{v}" nameB="mc_{charge}_{v}"  />
+				<Divide save_as="eff_{charge}_etap_{v}" nameA="rc_{charge}_etap_{v}" nameB="mc_{charge}_etap_{v}"  />
+				<Divide save_as="eff_{charge}_etan_{v}" nameA="rc_{charge}_etan_{v}" nameB="mc_{charge}_etan_{v}"  />
+
+				<Style name="eff_{charge}_{v}" y-title="EFF = RC / MC" />
+				<Style name="eff_{charge}_etap_{v}" y-title="EFF = RC / MC" />
+				<Style name="eff_{charge}_etan_{v}" y-title="EFF = RC / MC" />
+				
+			</Loop>
+		</Loop>
+
+		<RangeLoop vmin="a" vmax="b" min="-3.14" max="3.14" width="0.628" >
+	
+			<Assign var="fa" expr="TString::Format( &quot; %0.2f &quot;, {a} )" />
+			<Assign var="fb" expr="TString::Format( &quot; %0.2f &quot;, {b} )" />
+	
+			<Divide save_as="eff_pos_etap_phi{a_i}_mPt" nameA="rc_pos_etap_phi{a_i}_mPt" nameB="mc_pos_etap_phi{a_i}_mPt"  />
+			<Style name="eff_pos_etap_phi{a_i}_mPt" title="{fa} < #phi < {fb} and #eta > 0" y-title="EFF = RC / MC" />
+			<Divide save_as="eff_pos_etan_phi{a_i}_mPt" nameA="rc_pos_etan_phi{a_i}_mPt" nameB="mc_pos_etan_phi{a_i}_mPt"  />
+			<Style name="eff_pos_etan_phi{a_i}_mPt" title="{fa} < #phi < {fb} and #eta < 0" y-title="EFF = RC / MC" />
+
+			<Divide save_as="eff_neg_etap_phi{a_i}_mPt" nameA="rc_neg_etap_phi{a_i}_mPt" nameB="mc_neg_etap_phi{a_i}_mPt"  />
+			<Style name="eff_neg_etap_phi{a_i}_mPt" title="{fa} < #phi < {fb} and #eta > 0" y-title="EFF = RC / MC" />
+			<Divide save_as="eff_neg_etan_phi{a_i}_mPt" nameA="rc_neg_etan_phi{a_i}_mPt" nameB="mc_neg_etan_phi{a_i}_mPt"  />
+			<Style name="eff_neg_etan_phi{a_i}_mPt" title="{fa} < #phi < {fb} and #eta < 0" y-title="EFF = RC / MC" />
+		</RangeLoop>
+	</Transform>
+
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.01" />
+		<mPhi min="-3.2" max="3.2" width="0.05" />
+	</bins>
+
+</config>

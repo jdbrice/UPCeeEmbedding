@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="starlight_embed.lis" treeName="StMiniMcTree" />
+	<TFile url="output_reso.root" />
+
+	<Script>
+		TLorentzVectorUtil.C
+	</Script>
+
+	<cut 
+		prc="mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==2"
+		nrc="mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==3"
+		prcall="mMatchedPairs.mDedxPts>=15 && (mMatchedPairs.mFitPts / mMatchedPairs.mNPossible) && mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==2"
+		nrcall="mMatchedPairs.mDedxPts>=15 && (mMatchedPairs.mFitPts / mMatchedPairs.mNPossible) && mMatchedPairs.mFitPts>=20 && mMatchedPairs.mDcaGl < 1.0 && mMatchedPairs.mParentKey==0 && mMatchedPairs.mGeantId==3"
+		pmc="mMcTracks.mGeantId==2 && mMcTracks.mParentKey==0"
+		nmc="mMcTracks.mGeantId==3 && mMcTracks.mParentKey==0"
+		mc="(mMcTracks[0].mParentKey==0 && mMcTracks[1].mParentKey==0) && (mMcTracks[0].mGeantId==2 || mMcTracks[0].mGeantId==3) && (mMcTracks[1].mGeantId==2 || mMcTracks[1].mGeantId==3) && (mMcTracks[0].mGeantId!=mMcTracks[1].mGeantId)"
+		match="(mMatchedPairs[0].mParentKey==0 && mMatchedPairs[1].mParentKey==0) && (mMatchedPairs[0].mGeantId==2 || mMatchedPairs[0].mGeantId==3) && (mMatchedPairs[1].mGeantId==2 || mMatchedPairs[1].mGeantId==3) && (mMatchedPairs[0].mGeantId!=mMatchedPairs[1].mGeantId )"
+		reco="(mMatchedPairs[0].mDedxPts>=15 && (mMatchedPairs[0].mFitPts / mMatchedPairs[0].mNPossible) && mMatchedPairs[0].mFitPts>=20 && mMatchedPairs[0].mDcaGl < 1.0 ) && (mMatchedPairs[1].mDedxPts>=15 && (mMatchedPairs[1].mFitPts / mMatchedPairs[1].mNPossible) && mMatchedPairs[1].mFitPts>=20 && mMatchedPairs[1].mDcaGl < 1.0 )"
+	/>
+
+	<v mc6="mMcTracks[0].mPtMc, mMcTracks[0].mEtaMc, mMcTracks[0].mPhiMc, mMcTracks[1].mPtMc, mMcTracks[1].mEtaMc, mMcTracks[1].mPhiMc" rc6="mMatchedPairs[0].mPtMc, mMatchedPairs[0].mEtaMc, mMatchedPairs[0].mPhiMc, mMatchedPairs[1].mPtMc, mMatchedPairs[1].mEtaMc, mMatchedPairs[1].mPhiMc" pr6="mMatchedPairs[0].mPtPr, mMatchedPairs[0].mEtaPr, mMatchedPairs[0].mPhiPr, mMatchedPairs[1].mPtPr, mMatchedPairs[1].mEtaPr, mMatchedPairs[1].mPhiPr"
+	 />
+
+	<Transform>
+
+		
+		<Draw name="rdeltaPPt_PPtGen" data="d" draw=" ( pairPt( {v:rc6} ) - pairPt( {v:pr6} )  ) / pairPt( {v:rc6} ) : pairPt( {v:rc6} )" select="" bins_x="bins.mPPt" bins_y="bins.reso" title="; p_{T}^{ee} GEN (GeV/c^{2}); ( GEN - RECO ) / GEN" />
+
+		<Draw name="deltaPPt_PPtGen" data="d" draw=" ( pairPt( {v:rc6} ) - pairPt( {v:pr6} )  ) : pairPt( {v:rc6} )" select="" bins_x="bins.mPPt" bins_y="bins.reso" title="; p_{T}^{ee} GEN (GeV/c^{2}); ( GEN - RECO )" />
+
+		<Draw name="rdeltaPPt_PPt2Gen" data="d" draw=" ( pow(pairPt( {v:rc6} ),2) - pow(pairPt( {v:pr6} ),2)  ) / pow(pairPt( {v:rc6} ),2) : pow(pairPt( {v:rc6} ),2)" select="" bins_x="bins.mPPt2" bins_y="bins.reso" title="; p_{T}^{ee} GEN (GeV/c^{2}); ( GEN - RECO ) / GEN" />
+
+		<Draw name="deltaPPt_PPt2Gen" data="d" draw=" ( pow(pairPt( {v:rc6} ),2) - pow(pairPt( {v:pr6} ),2)  ) : pow(pairPt( {v:rc6} ),2)" select="" bins_x="bins.mPPt2" bins_y="bins.reso" title="; p_{T}^{ee} GEN (GeV/c^{2}); ( GEN - RECO )" />
+
+		<Draw name="mc_PPt" data="d" draw="pairPt( {v:rc6} )" select="" bins_x="bins.mPPt" title="; GEN p_{T}^{ee} (GeV/c); dN/d(GEN p_{T}^{ee}) (GeV/c)^{-1}"/>
+
+		<Draw name="rc_PPt" data="d" draw="pairPt( {v:pr6} )" select="" bins_x="bins.mPPt" title="; RECO p_{T}^{ee} (GeV/c); dN/d(RECO p_{T}^{ee}) (GeV/c)^{-1}" />
+
+		<Draw name="mc_PPt2" data="d" draw="pow(pairPt( {v:rc6} ),2)" select="" bins_x="bins.mPPt2" title="; GEN p_{T}^{ee} (GeV/c); dN/d(GEN p_{T}^{ee}) (GeV/c)^{-1}"/>
+
+		<Draw name="rc_PPt2" data="d" draw="pow(pairPt( {v:pr6} ),2)" select="" bins_x="bins.mPPt2" title="; RECO p_{T}^{ee} (GeV/c); dN/d(RECO p_{T}^{ee}) (GeV/c)^{-1}" />
+
+		<Draw name="deltaPt_PtGen" data="d" draw="mMatchedPairs.mPtMc - mMatchedPairs.mPtPr : mMatchedPairs.mPtMc" select="mMatchedPairs.mParentKey==0" bins_x="bins.mPt" bins_y="bins.reso" />
+		<Draw name="rdeltaPt_PtGen" data="d" draw="(mMatchedPairs.mPtMc - mMatchedPairs.mPtPr) / mMatchedPairs.mPtMc : mMatchedPairs.mPtMc" select="mMatchedPairs.mParentKey==0" bins_x="bins.mPt" bins_y="bins.reso" />
+
+
+
+	</Transform>
+
+	<Transform>
+		<Sumw2 name="mMass" />
+		<Sumw2 name="mc_mMass" />
+		<Divide save_as="eff_mMass" nameA="mMass" nameB="mc_mMass"/>
+		
+		<Divide save_as="eff_mPhi_mEta_pos" nameA="mPhi_mEta_pos" nameB="mc_mPhi_mEta_pos" />
+		<Divide save_as="eff_mPhi_mEta_neg" nameA="mPhi_mEta_neg" nameB="mc_mPhi_mEta_neg" />
+
+		<Divide save_as="eff_mPhi_mPt_pos" nameA="mPhi_mPt_pos" nameB="mc_mPhi_mPt_pos" />
+		<Divide save_as="eff_mPhi_mPt_neg" nameA="mPhi_mPt_neg" nameB="mc_mPhi_mPt_neg" />
+	</Transform>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.05" />
+		<reso min="-1" max="1" width="0.001" />
+		<mPPt min="0" max="0.200" width="0.001" />
+		<mPPt2 min="0" max="0.100" width="0.0001" />
+		<mPhi min="-3.2" max="3.2" width="0.05" />
+		<mEta min="-1.1" max="1.1" width="0.05"/>
+		<mNHits min="0" max="50" width="1" />
+		<mNHitsRatio min="0" max="1.2" nBins="50" />
+		<mMass>0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.10, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.00, 2.20, 2.4, 2.6, 2.8, 3.00, 3.5, 4.0, 4.5, 5.0</mMass>
+	</bins>
+
+</config>

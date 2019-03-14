@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	
+	<Log url="log2"/>
+	<Data name="d" url="output_draw.root" />
+	<TFile url="output_make.root" />
+
+	<TCanvas w="1200" h ="900" />
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+		<Projection axis="y" save_as="sl_p_nhf_pt{i}" name="d/sl_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dall_p_nhf_pt{i}" name="d/dall_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dele_p_nhf_pt{i}" name="d/dele_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtof_p_nhf_pt{i}" name="d/dtof_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtoe_p_nhf_pt{i}" name="d/dtoe_p_nhf_pt" x1="{pt1}" x2="{pt2}" />
+
+
+		<Projection axis="y" save_as="sl_n_nhf_pt{i}" name="d/sl_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dall_n_nhf_pt{i}" name="d/dall_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dele_n_nhf_pt{i}" name="d/dele_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtof_n_nhf_pt{i}" name="d/dtof_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+		<Projection axis="y" save_as="dtoe_n_nhf_pt{i}" name="d/dtoe_n_nhf_pt" x1="{pt1}" x2="{pt2}" />
+	</RangeLoop>
+	
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Normalize save_as="norm_sl_p_pt{i}" name="sl_p_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dall_p_pt{i}" name="dall_p_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dele_p_pt{i}" name="dele_p_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtof_p_pt{i}" name="dtof_p_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtoe_p_pt{i}" name="dtoe_p_nhf_pt{i}" x1="0" x2="50" />
+
+
+		<Normalize save_as="norm_sl_n_pt{i}" name="sl_n_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dall_n_pt{i}" name="dall_n_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dele_n_pt{i}" name="dele_n_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtof_n_pt{i}" name="dtof_n_nhf_pt{i}" x1="0" x2="50" />
+		<Normalize save_as="norm_dtoe_n_pt{i}" name="dtoe_n_nhf_pt{i}" x1="0" x2="50" />
+	</RangeLoop>
+
+
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+		
+		<CDF save_as="cdf_sl_p_pt{i}" name="norm_sl_p_pt{i}" forward="true" />
+		<CDF save_as="cdf_dall_p_pt{i}" name="norm_dall_p_pt{i}" forward="true" />
+		<CDF save_as="cdf_dele_p_pt{i}" name="norm_dele_p_pt{i}" forward="true" />
+		<CDF save_as="cdf_dtof_p_pt{i}" name="norm_dtof_p_pt{i}" forward="true" />
+		<CDF save_as="cdf_dtoe_p_pt{i}" name="norm_dtoe_p_pt{i}" forward="true" />
+
+		<CDF save_as="cdf_sl_n_pt{i}" name="norm_sl_n_pt{i}" forward="true" />
+		<CDF save_as="cdf_dall_n_pt{i}" name="norm_dall_n_pt{i}" forward="true" />
+		<CDF save_as="cdf_dele_n_pt{i}" name="norm_dele_n_pt{i}" forward="true" />
+		<CDF save_as="cdf_dtof_n_pt{i}" name="norm_dtof_n_pt{i}" forward="true" />
+		<CDF save_as="cdf_dtoe_n_pt{i}" name="norm_dtoe_n_pt{i}" forward="true" />
+	</RangeLoop>
+		
+
+	<RangeLoop vmin="pt1" vmax="pt2"  index="i">
+		0.10, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.28, 0.30, 0.35, 0.40, 0.50, 0.6, 0.8, 1.0
+
+		<Format var="fpt1" format="%0.2f" expr="{pt1}" />
+		<Format var="fpt2" format="%0.2f" expr="{pt2}" />
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 3, 50" lsy="0, 1.2, 100" title="Pos : {fpt1} < p_{T} < {fpt2} (GeV/c); nHitsFit; #varepsilon( nHitsFit > X )" />
+			<Histo name="cdf_sl_p_pt{i}" draw="same hist" lw="2" lc="#F00" line-style="2" />
+			<Histo name="cdf_dall_p_pt{i}" draw="same hist" lw="2" lc="#ff7657" />
+			<Histo name="cdf_dele_p_pt{i}" draw="same hist" lw="2" lc="#018790" />
+			<Histo name="cdf_dtof_p_pt{i}" draw="same hist" lw="2" lc="#00F" />
+			<Histo name="cdf_dtoe_p_pt{i}" draw="same hist" lw="2" lc="#3c415e" />
+
+
+			<Histo name="cdf_sl_p_pt{i}" draw="same pe" lw="2" lc="#F00" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="cdf_sl_p_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="cdf_dall_p_pt{i}" title="data: all" opt="lpe" />
+				<Entry name="cdf_dele_p_pt{i}" title="data: |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="cdf_dtof_p_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="cdf_dtoe_p_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="export/cdf_nhf_p_{i}.pdf" />
+			<Export url="export/img_cdf_nhf_p_{i}.png" />
+		</Plot>
+
+		<Plot>
+			<StatBox v="000" />
+			<Axes lsx="0, 3, 50" lsy="0, 1.2, 100" title="Neg : {fpt1} < p_{T} < {fpt2} (GeV/c); nHitsFit; #varepsilon( nHitsFit > X )" />
+			<Histo name="cdf_sl_n_pt{i}" draw="same hist" lw="2" lc="#F00" line-style="2" />
+			<Histo name="cdf_dall_n_pt{i}" draw="same hist" lw="2" lc="#ff7657" />
+			<Histo name="cdf_dele_n_pt{i}" draw="same hist" lw="2" lc="#018790" />
+			<Histo name="cdf_dtof_n_pt{i}" draw="same hist" lw="2" lc="#00F" />
+			<Histo name="cdf_dtoe_n_pt{i}" draw="same hist" lw="2" lc="#3c415e" />
+
+
+			<Histo name="cdf_sl_n_pt{i}" draw="same pe" lw="2" lc="#F00" line-style="2" title="{fpt1} < p_{T} < {fpt2} (GeV/c)"/>
+
+			<Legend >
+				<Position pos="top left" />
+				<Entry name="cdf_sl_n_pt{i}" title="embedding" opt="lpe" />
+				<Entry name="cdf_dall_n_pt{i}" title="data: all" opt="lpe" />
+				<Entry name="cdf_dele_n_pt{i}" title="data: |n#sigma_{e}|<3" opt="lpe" />
+				<Entry name="cdf_dtof_n_pt{i}" title="data: tof" opt="lpe" />
+				<Entry name="cdf_dtoe_n_pt{i}" title="data: tof + |n#sigma_{e}|<3" opt="lpe" />
+			</Legend>
+
+			<Export url="export/cdf_nhf_n_{i}.pdf" />
+			<Export url="export/img_cdf_nhf_n_{i}.png" />
+		</Plot>
+	</RangeLoop>
+
+</config>

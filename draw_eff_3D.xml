@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="starlight_all.lis" treeName="StMiniMcTree" />
+	<ver>NOMINAL</ver>
+	<TFile url="output_eff_3D_{ver}.root" />
+
+	<Script>
+		TLorentzVectorUtil.C,
+		TofReweight.C
+	</Script>
+
+	<N>100000000</N>
+
+	<cut 
+		nHitsDedx="15" nHitsFit="20" dca="1" nhr="0.52" vz="100" eta="1.0"
+
+		pmatched="(mMatchedPairs[0].mDedxPts>={cut:nHitsDedx} && (mMatchedPairs[0].mFitPts / mMatchedPairs[0].mNPossible) > {cut:nhr} && mMatchedPairs[0].mFitPts>={cut:nHitsFit} && mMatchedPairs[0].mDcaGl < {cut:dca} ) && (mMatchedPairs[1].mDedxPts>={cut:nHitsDedx} && (mMatchedPairs[1].mFitPts / mMatchedPairs[1].mNPossible) > {cut:nhr} && mMatchedPairs[1].mFitPts>={cut:nHitsFit} && mMatchedPairs[1].mDcaGl < {cut:dca} ) && (mMatchedPairs[0].mParentKey==0 && mMatchedPairs[1].mParentKey==0) && (mMatchedPairs[0].mGeantId==2 || mMatchedPairs[0].mGeantId==3) && (mMatchedPairs[1].mGeantId==2 || mMatchedPairs[1].mGeantId==3) && (mMatchedPairs[0].mGeantId!=mMatchedPairs[1].mGeantId ) && mMatchedPairs[0].mPtMc>0.2 && mMatchedPairs[1].mPtMc>0.2 && abs(mVertexZ) < {cut:vz} && ( abs(mMatchedPairs[0].mEtaMc)<{cut:eta} && abs(mMatchedPairs[1].mEtaMc)<{cut:eta} )"
+		
+		pmc="(mMcTracks[0].mParentKey==0 && mMcTracks[1].mParentKey==0) && (mMcTracks[0].mGeantId==2 || mMcTracks[0].mGeantId==3) && (mMcTracks[1].mGeantId==2 || mMcTracks[1].mGeantId==3) && (mMcTracks[0].mGeantId!=mMcTracks[1].mGeantId) && mMcTracks[0].mPtMc>0.2 && mMcTracks[1].mPtMc>0.2 && abs(mVertexZ) < {cut:vz}  && abs(mMcTracks[0].mEtaMc) < {cut:eta} && abs(mMcTracks[1].mEtaMc) < {cut:eta}"
+	/>
+
+	<v mc6="mMcTracks[0].mPtMc, mMcTracks[0].mEtaMc, mMcTracks[0].mPhiMc, mMcTracks[1].mPtMc, mMcTracks[1].mEtaMc, mMcTracks[1].mPhiMc" rc6="mMatchedPairs[0].mPtMc, mMatchedPairs[0].mEtaMc, mMatchedPairs[0].mPhiMc, mMatchedPairs[1].mPtMc, mMatchedPairs[1].mEtaMc, mMatchedPairs[1].mPhiMc" />
+
+	<Transform>
+		<ProcessLine expr="TofReweight()" />
+		<Draw name="mc_mMass" data="d" draw="pairMass( {v:mc6} ) : pairPt( {v:mc6} ) : pairRapidity( {v:mc6} )" select="{cut:pmc}" bins_x="bins.mRapidity" bins_y="bins.mPt" bins_z="bins.mMass" title="; y^{ee}; p_{T} (GeV/c); M_{ee} (GeV/c^{2}) " N="{N}"/>
+		<Draw name="mMass" data="d" draw="pairMass( {v:rc6} ) : pairPt( {v:rc6} ) : pairRapidity( {v:rc6} )" select="{cut:pmatched}" bins_x="bins.mRapidity" bins_y="bins.mPt" bins_z="bins.mMass" title="; y^{ee}; p_{T} (GeV/c); M_{ee} (GeV/c^{2}) " N="{N}" />
+	</Transform>
+
+	<Transform>
+		<Sumw2 name="mMass" />
+		<Sumw2 name="mc_mMass" />
+		<Divide save_as="eff_mMass" nameA="mMass" nameB="mc_mMass" opt="B"/>
+	</Transform>
+
+	<bins>
+		<mMass min="0" max="3.0" width="0.1" />
+		<mPt min="0" max="0.15" width="0.01" />
+		<mRapidity min="-1" max="1" width="0.1"/>
+	</bins>
+
+</config>

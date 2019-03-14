@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="me" url="output_eff_mass_NOMINAL.root" />
+	<!-- <Data name="sh" url="/Users/jdb/bnl/work/upc/embedding/shuai/AuAu200_pairEff/output/TPC_woPID.root" /> -->
+	<!-- <Data name="sh" url="/Users/jdb/bnl/work/upc/embedding/shuai/AuAu200_pairEff/output/TPC_woPID_woNHDCorr.root" /> -->
+	<Data name="sha" url="/Users/jdb/bnl/work/upc/embedding/shuai/AuAu200_pairEff/output/ALLCORRs.root" />
+	<Data name="sh" url="/Users/jdb/bnl/work/upc/embedding/shuai/AuAu200_pairEff/output/ALL_wo_nSigE.root" />
+	
+
+	<Transform>
+		<Projection axis="y" save_as="hRC" name="sh/hRCgammagammaeehistRun10" x1="0" x2="0.150"/>
+		<Projection axis="y" save_as="hMC" name="sh/hMCAcc1gammagammaeehist" x1="0" x2="0.150"/>
+
+		<Projection axis="y" save_as="haRC" name="sha/hRCgammagammaeehistRun10" x1="0" x2="0.150"/>
+		<Projection axis="y" save_as="haMC" name="sha/hMCAcc1gammagammaeehist" x1="0" x2="0.150"/>
+
+		<Rebin save_as="hRCrb" name="hRC" bins_x="mMass" />
+		<Rebin save_as="hMCrb" name="hMC" bins_x="mMass" />
+
+		<Rebin save_as="haRCrb" name="haRC" bins_x="mMass" />
+		<Rebin save_as="haMCrb" name="haMC" bins_x="mMass" />
+
+		<Divide save_as="hes" nameA="hRCrb" nameB="hMCrb" />
+		<Divide save_as="haes" nameA="haRCrb" nameB="haMCrb" />
+
+		<!-- 0.6 * 0.8  = 0.48-->
+		<!-- 0.6 * 0.74 = 0.444 -->
+		<Scale save_as="mes" name="me/eff_mMass" factor="0.48" />
+
+		<Divide save_as="mine_over_shuai" nameA="me/eff_mMass" nameB="hes" />
+	</Transform>
+
+
+	<Plot>
+		<Histo name="hes" draw="hist" xr="0, 2.5" yr="0, 0.7" />
+		<Histo name="hes" draw="same pe" />
+
+		<Histo name="haes" draw="same hist" xr="0, 2.5" yr="0, 0.7" lc="#00F"/>
+		<Histo name="haes" draw="same pe" lc="#00F" />
+
+		<Histo name="me/eff_mMass" lc="#000" draw="same hist" />
+		<Histo name="mes" lc="#F00" draw="same hist" />
+		<Histo name="mes" lc="#F00" draw="same pe" />
+
+		<Histo name="mine_over_shuai" draw="same hist" />
+
+		<Export url="plot_compare_shuai_eff.pdf" />
+	</Plot>
+
+
+
+
+	<mMass>0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.10, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.00, 2.20, 2.4, 2.6, 2.8, 3.00, 3.5, 4.0, 4.5, 5.0</mMass>
+
+</config>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Data name="d" url="starlight_all.lis" treeName="StMiniMcTree" />
+	<ver>NOMINAL</ver>
+	<TFile url="output_eff_DeltaPhi_{ver}.root" />
+
+	<Script>
+		TLorentzVectorUtil.C,
+		TofReweight.C
+	</Script>
+
+	<N>100000000</N>
+
+	<cut 
+		nHitsDedx="15" nHitsFit="20" dca="1" nhr="0.52" vz="100" eta="1.0"
+
+		pmatched="(mMatchedPairs[0].mDedxPts>={cut:nHitsDedx} && (mMatchedPairs[0].mFitPts / mMatchedPairs[0].mNPossible) > {cut:nhr} && mMatchedPairs[0].mFitPts>={cut:nHitsFit} && mMatchedPairs[0].mDcaGl < {cut:dca} ) && (mMatchedPairs[1].mDedxPts>={cut:nHitsDedx} && (mMatchedPairs[1].mFitPts / mMatchedPairs[1].mNPossible) > {cut:nhr} && mMatchedPairs[1].mFitPts>={cut:nHitsFit} && mMatchedPairs[1].mDcaGl < {cut:dca} ) && (mMatchedPairs[0].mParentKey==0 && mMatchedPairs[1].mParentKey==0) && (mMatchedPairs[0].mGeantId==2 || mMatchedPairs[0].mGeantId==3) && (mMatchedPairs[1].mGeantId==2 || mMatchedPairs[1].mGeantId==3) && (mMatchedPairs[0].mGeantId!=mMatchedPairs[1].mGeantId ) && mMatchedPairs[0].mPtMc>0.2 && mMatchedPairs[1].mPtMc>0.2 && abs(mVertexZ) < {cut:vz} && ( abs(mMatchedPairs[0].mEtaMc)<{cut:eta} && abs(mMatchedPairs[1].mEtaMc)<{cut:eta} )"
+		
+		pmc="(mMcTracks[0].mParentKey==0 && mMcTracks[1].mParentKey==0) && (mMcTracks[0].mGeantId==2 || mMcTracks[0].mGeantId==3) && (mMcTracks[1].mGeantId==2 || mMcTracks[1].mGeantId==3) && (mMcTracks[0].mGeantId!=mMcTracks[1].mGeantId) && mMcTracks[0].mPtMc>0.2 && mMcTracks[1].mPtMc>0.2 && abs(mVertexZ) < {cut:vz}  && abs(mMcTracks[0].mEtaMc) < {cut:eta} && abs(mMcTracks[1].mEtaMc) < {cut:eta}"
+	/>
+
+	<v mc6="mMcTracks[0].mPtMc, mMcTracks[0].mEtaMc, mMcTracks[0].mPhiMc, mMcTracks[1].mPtMc, mMcTracks[1].mEtaMc, mMcTracks[1].mPhiMc" rc6="mMatchedPairs[0].mPtMc, mMatchedPairs[0].mEtaMc, mMatchedPairs[0].mPhiMc, mMatchedPairs[1].mPtMc, mMatchedPairs[1].mEtaMc, mMatchedPairs[1].mPhiMc" />
+
+	<Transform>
+		<ProcessLine expr="TofReweight()" />
+		<Draw name="mc_mDeltaPhi" data="d" draw="deltaPhi( {v:mc6} )" select="{cut:pmc}" bins_x="bins.mDeltaPhi" title="; M_{ee} (GeV/c^{2});" N="{N}"/>
+		<Draw name="mDeltaPhi" data="d" draw="deltaPhi( {v:rc6} )" select="{cut:pmatched}" bins_x="bins.mDeltaPhi" title="; M_{ee} (GeV/c^{2});" N="{N}" />
+
+		<!-- <Draw name="wmMass" data="d" draw="pairMass( {v:rc6} )" select="({cut:pmatched}) * nhfWeight( mMatchedPairs[0].mFitPts, mMatchedPairs[0].mEtaPr ) * nhfWeight( mMatchedPairs[1].mFitPts, mMatchedPairs[1].mEtaPr )" bins_x="bins.mMass" title="; M_{ee} (GeV/c^{2});" N="{N}" /> -->
+	</Transform>
+
+	<Transform>
+		<Sumw2 name="mDeltaPhi" />
+		<Sumw2 name="mc_mDeltaPhi" />
+		<Divide save_as="eff_mDeltaPhi" nameA="mDeltaPhi" nameB="mc_mDeltaPhi"/>
+		<!-- <Divide save_as="eff_wmMass" nameA="wmMass" nameB="mc_mMass"/> -->
+	</Transform>
+
+	<bins>
+		<mPt min="0" max="1.0" width="0.01" />
+		<mDeltaPhi min="-3.14" max="3.14" width="0.0314" />
+
+		<mPPt min="0" max="0.200" width="0.01" />
+		<mPhi min="-3.2" max="3.2" width="0.05" />
+		<mEta min="-1.1" max="1.1" width="0.05"/>
+		<mNHits min="0" max="50" width="1" />
+		<mNHitsRatio min="0" max="1.2" nBins="50" />
+		<mMass>0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.10, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.00, 2.20, 2.4, 2.6, 2.8, 3.00, 3.5, 4.0, 4.5, 5.0</mMass>
+	</bins>
+
+</config>
